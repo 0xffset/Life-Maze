@@ -1,0 +1,49 @@
+.app-bar {
+    @media screen and (max-width: 1200px) {
+       z-index: 1100 !important;
+    }
+ 
+    button.menu-icon {
+       @media screen and (min-width: 1201px) {
+          display: none !important;
+       }
+    }
+ 
+    img.logo {
+       height: 36px;
+       margin-right: 16px;
+    }
+ 
+    div.app-name {
+       @media screen and (max-width: 530px) {
+          display: none;
+       }
+    }
+ 
+    div.right-buttons {
+       button, a {
+          margin-left: 8px;
+ 
+          &.no-mobile {
+             @media screen and (max-width: 400px) {
+                display: none;
+             }
+          }
+ 
+          &.no-desktop {
+             @media screen and (min-width: 401px) {
+                display: none;
+             }
+          }
+       }
+ 
+       @media screen and (max-width: 530px) {
+          flex-grow: 1;
+ 
+          button.change-theme span.current-theme-text {
+             display: none;
+          }
+       }
+    }
+ }
+ 

@@ -1,0 +1,53 @@
+div.select-node {
+    height: 100%;
+    opacity: 0.7;
+    font-size: 14px;
+ }
+ 
+ div.node-info {
+    height: 100%;
+    font-family: 'Fira Code', monospace;
+ 
+    div.active-node {
+       background: green;
+       width: 32px;
+       height: 32px;
+       line-height: 32px;
+       text-align: center;
+       border-radius: 50px;
+       margin-right: 32px;
+    }
+ 
+    div.node-detail {
+       margin-right: 24px;
+       font-size: 12px;
+ 
+       span {
+          opacity: 0.8;
+       }
+ 
+       &.rank {
+          @media screen and (max-width: 275px) {
+             display: none;
+          }
+       }
+ 
+       &.parents {
+          @media screen and (max-width: 750px) {
+             display: none;
+          }
+       }
+ 
+       &.children {
+          @media screen and (max-width: 500px) {
+             display: none;
+          }
+       }
+ 
+       &.retention {
+          @media screen and (max-width: 1000px) {
+             display: none;
+          }
+       }
+    }
+ }

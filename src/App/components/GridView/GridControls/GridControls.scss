@@ -1,0 +1,83 @@
+div.grid-controls {
+   div.power-icons {
+      button.next-step-button {
+         margin-left: 12px;
+      }
+
+      @media screen and (max-width: 965px) {
+         .reset-grid-layout-main-button {
+            display: none;
+         }
+      }
+
+      .no-desktop {
+         display: none;
+      }
+
+      @media screen and (max-width: 375px) {
+         .no-xs-screen {
+            display: none;
+         }
+
+         .no-desktop {
+            display: unset;
+         }
+      }
+   }
+
+   div.iteration-progress-bar {
+      flex-shrink: 0;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-radius: 0;
+
+      padding: 0 16px;
+      font-size: 14px;
+
+      >span {
+         opacity: 0.5;
+      }
+
+      span.bar {
+         opacity: 1;
+         width: 100px;
+         margin: 8px;
+         border-radius: 50px;
+      }
+
+      span.slash {
+         display: none;
+      }
+
+      @media screen and (max-width: 475px) {
+         span.bar {
+            display: none;
+         }
+
+         span.slash {
+            display: inline-block;
+         }
+      }
+   }
+
+   div.view-icons {
+      div.full-buttons {
+         button {
+            margin-left: 12px;
+         }
+
+         @media screen and (max-width: 965px) {
+            display: none;
+         }
+      }
+
+      div.menu-buttons {
+         display: none;
+
+         @media screen and (max-width: 965px) {
+            display: block;
+         }
+      }
+   }
+}

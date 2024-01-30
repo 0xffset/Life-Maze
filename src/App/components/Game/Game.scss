@@ -1,0 +1,53 @@
+$bar-height: 48px;
+
+div.graphView {
+   height: 100%;
+
+   div.node-info-bar,
+   div.graph-controls-bar {
+      height: $bar-height;
+      flex-shrink: 0;
+   }
+
+   div.graph-controls-bar {
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-radius: 0;
+   }
+
+   div.node-info-bar {
+      border-bottom: none;
+      border-left: none;
+      border-right: none;
+      border-radius: 0;
+   }
+
+   div.main-view {
+      width: 100%;
+      height: 100%;
+      flex-grow: 1;
+      position: relative;
+      overflow: hidden;
+
+      div.graph-container {
+         width: 100%;
+         height: 100%;
+         position: relative;
+         z-index: 1;
+
+         > div {
+            width: 100% !important;
+            height: 100% !important;
+         }
+
+         transition: transform 400ms easing("standard"), opacity 400ms easing("standard");
+         opacity: 1;
+
+         &.isClosed {
+            transform: translateY(25%);
+            opacity: 0;
+         }
+      }
+   }
+}

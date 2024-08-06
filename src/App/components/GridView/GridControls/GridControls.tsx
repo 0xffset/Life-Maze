@@ -151,10 +151,10 @@ const GridControls: React.FC<GridControlsProps> = (
                     Number((event.target as HTMLInputElement).value)
                   )
                 }
-                defaultValue={80}
+                defaultValue={85}
                 step={10}
-                min={80}
-                max={500}
+                min={85}
+                max={505}
               />
             </Tooltip>
           </Grid>

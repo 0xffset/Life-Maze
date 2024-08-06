@@ -131,6 +131,7 @@ export const AppContextProvider = ({
         boardCells[y][x] = cell;
       }
     }
+    calculateCoordinates(boardCells);
     setGrid((prev) => ({
       ...prev,
       cells: boardCells,
@@ -301,6 +302,48 @@ export const AppContextProvider = ({
     return neighbors;
   };
 
+  const calculateCoordinates = (grid: ICell[][]) => {
+    let map_coordinates = {
+      left: [{ XY: {}, cartesian: {} }],
+      right: [{ XY: {}, cartesian: {} }],
+      upper: [{ XY: {}, cartesian: {} }],
+      down: [{ XY: {}, cartesian: {} }],
+    };
+    // Center
+    const x_center: number = Math.floor((grid.length - 1) / 2);
+    const y_center: number = Math.floor(grid.length / 2);
+    const center: ICell = grid[x_center][y_center];
+
+    // Left
+    for (let index = 1; index < x_center; index++) {
+      map_coordinates["left"].push({
+        XY: [index, x_center],
+        cartesian: [-index, 0],
+      });
+    }
+    // Right
+    for (let index = x_center; index > 1; index--) {
+      map_coordinates["right"].push({
+        XY: [index, x_center],
+        cartesian: [index, 0],
+      });
+    }
+    // Upper
+    for (let index = 1; index < y_center; index++) {
+      map_coordinates["upper"].push({
+        XY: [y_center, index],
+        cartesian: [0, index],
+      });
+    }
+    // Down
+    for (let index = y_center; index > 1; index--) {
+      map_coordinates["down"].push({
+        XY: [y_center, index],
+        cartesian: [0, -index],
+      });
+    }
+    console.log(map_coordinates);
+  };
   const clickedCell = useCallback(
     (index: number, x: number, y: number) => {
       setCoordinates(`${x / RADIO_CELL_SIZE} ${y / RADIO_CELL_SIZE}`);

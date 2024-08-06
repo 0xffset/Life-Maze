@@ -6,8 +6,8 @@ export const ZOOM_MAX_SCALE = 10;
 export const ZOOM_MIN_SCALE = 0.1;
 
 export const CELL_SIZE = 5;
-export const WIDTH = 80;
-export const HEIGHT = 80;
+export const WIDTH = 85;
+export const HEIGHT = 85;
 export const CLICKED_CELL_COLOR = "black";
 export const NO_CLICKED_CELL_COLOR = "#ccc";
 export const RADIO_CELL_SIZE = 60;

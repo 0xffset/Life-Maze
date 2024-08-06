@@ -10,6 +10,8 @@ import {
   Menu,
   MenuItem,
   Tooltip,
+  Slider,
+  Grid,
 } from "@mui/material";
 
 import AppContext from "../../../../LifeMaze/AppContext";
@@ -23,6 +25,8 @@ import RefreshIcon from "@mui/icons-material/SettingsBackupRestore";
 import RestartIcon from "@mui/icons-material/RestartAlt";
 import ZoomInIcon from "@mui/icons-material/ZoomIn";
 import ZoomOutIcon from "@mui/icons-material/ZoomOut";
+import Grid4x4Icon from "@mui/icons-material/Grid4x4";
+
 import { useContext } from "react";
 
 /**
@@ -57,6 +61,10 @@ interface GridControlsProps {
    * Reset the simulation to the initial pattern.
    */
   onResetInitialGrid: () => void;
+  /**
+   * Increase/Decrease the grid size.
+   */
+  onIncreaseDecreaseGridSize: (size: number) => void;
 }
 
 const GridControls: React.FC<GridControlsProps> = (
@@ -129,6 +137,28 @@ const GridControls: React.FC<GridControlsProps> = (
             Next Iteration
           </Button>
         </Tooltip>
+
+        <Box sx={{ width: 250 }}>
+          <Grid item>
+            <Grid4x4Icon />
+          </Grid>
+          <Grid item>
+            <Tooltip title="Grid size">
+              <Slider
+                disabled={isRunningGame ?? false}
+                onChange={(event) =>
+                  props.onIncreaseDecreaseGridSize(
+                    Number((event.target as HTMLInputElement).value)
+                  )
+                }
+                defaultValue={80}
+                step={10}
+                min={80}
+                max={500}
+              />
+            </Tooltip>
+          </Grid>
+        </Box>
 
         <Tooltip title="Next Iteration" className="no-desktop">
           <IconButton aria-label="next iteration" color="primary">

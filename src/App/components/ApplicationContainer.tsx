@@ -42,6 +42,7 @@ const ApplicationContainer = () => {
     runIteration,
     onNextStepIteration,
     onPauseIteration,
+    onIncreaseDecreaseGridSize,
     isRunningGame,
     backgorundConfig,
     unsetCell,
@@ -230,6 +231,7 @@ const ApplicationContainer = () => {
             onPauseIteration={onPauseIteration}
             onRestartGrid={makeCellsGrid}
             onRunInteration={onRunInteration}
+            onIncreaseDecreaseGridSize={onIncreaseDecreaseGridSize}
           />
         </Box>
         <Paper variant="outlined" elevation={0} className="grid-info-bar">

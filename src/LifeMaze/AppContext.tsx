@@ -10,7 +10,13 @@ import {
   ZOOM_MAX_SCALE,
   ZOOM_MIN_SCALE,
 } from "./data/constants";
-import { IBackgroundConfig, ICell, ICellConfig, IGrid, IPoint } from "./data/type";
+import {
+  IBackgroundConfig,
+  ICell,
+  ICellConfig,
+  IGrid,
+  IPoint,
+} from "./data/type";
 import React, { useCallback, useState } from "react";
 
 interface AppContextState {
@@ -34,6 +40,7 @@ interface AppContextState {
   onPauseIteration: () => void;
   onNextStepIteration: () => void;
   onResetInitialGrid: () => void;
+  onIncreaseDecreaseGridSize: (size: number) => void;
   runIteration: () => void;
   makeCellsGrid: () => void;
   makeEmpltyBoard: () => void;
@@ -62,6 +69,8 @@ export const AppContextProvider = ({
   const [scale, setScale] = useState<number>(1);
   const [generation, setGeneration] = useState<number>(0);
   const [population, setPopulation] = useState<number>(0);
+  const [width, setWidth] = useState<number>(WIDTH);
+  const [height, setHeight] = useState<number>(HEIGHT);
 
   const [coordinates, setCoordinates] = useState<string | null>("");
   const [isRunningGame, setIsRunningGame] = useState<boolean>(false);
@@ -89,9 +98,9 @@ export const AppContextProvider = ({
 
   const makeNewEmptyBoardForInteration = () => {
     let boardCells: ICell[][] = [];
-    for (let y = 0; y < HEIGHT / CELL_SIZE; y++) {
+    for (let y = 0; y < height / CELL_SIZE; y++) {
       boardCells[y] = [];
-      for (let x = 0; x < WIDTH / CELL_SIZE; x++) {
+      for (let x = 0; x < width / CELL_SIZE; x++) {
         const cell: ICell = {
           x,
           y,
@@ -108,9 +117,9 @@ export const AppContextProvider = ({
 
   const makeGridCells = () => {
     let boardCells: ICell[][] = [];
-    for (let y = 0; y < HEIGHT / CELL_SIZE; y++) {
+    for (let y = 0; y < height / CELL_SIZE; y++) {
       boardCells[y] = [];
-      for (let x = 0; x < WIDTH / CELL_SIZE; x++) {
+      for (let x = 0; x < width / CELL_SIZE; x++) {
         const cell: ICell = {
           x,
           y,
@@ -140,7 +149,6 @@ export const AppContextProvider = ({
   }, [setScale]);
 
   const zoomOut = useCallback(() => {
-    console.log(scale);
     setScale((prev) =>
       Number(
         Math.min(
@@ -191,10 +199,35 @@ export const AppContextProvider = ({
     }));
   }, [grid]);
 
+  const onIncreaseDecreaseGridSize = useCallback((size: number) => {
+    setWidth(size);
+    setHeight(size);
+
+    let boardCells: ICell[][] = [];
+    for (let y = 0; y < size / CELL_SIZE; y++) {
+      boardCells[y] = [];
+      for (let x = 0; x < size / CELL_SIZE; x++) {
+        const cell: ICell = {
+          x,
+          y,
+          backgroundColor: "",
+          color: "#ccc",
+        };
+        cell.x = x;
+        cell.y = y;
+        boardCells[y][x] = cell;
+      }
+    }
+    setGrid((prev) => ({
+      ...prev,
+      cells: boardCells,
+    }));
+  }, []);
+
   const countPopulation = () => {
     setPopulation(0);
-    for (let y = 0; y < HEIGHT / CELL_SIZE; y++) {
-      for (let x = 0; x < WIDTH / CELL_SIZE; x++) {
+    for (let y = 0; y < height / CELL_SIZE; y++) {
+      for (let x = 0; x < width / CELL_SIZE; x++) {
         if (grid.cells[y][x].color === CLICKED_CELL_COLOR) {
           setPopulation((prev) => ++prev);
         }
@@ -209,8 +242,8 @@ export const AppContextProvider = ({
     }
 
     let newBoard = makeNewEmptyBoardForInteration();
-    for (let y = 0; y < HEIGHT / CELL_SIZE; y++) {
-      for (let x = 0; x < WIDTH / CELL_SIZE; x++) {
+    for (let y = 0; y < height / CELL_SIZE; y++) {
+      for (let x = 0; x < width / CELL_SIZE; x++) {
         let neighbors = calculateNeighbors(grid.cells, x, y);
         if (grid.cells[y][x].color === CLICKED_CELL_COLOR) {
           if (neighbors === 2 || neighbors === 3) {
@@ -257,9 +290,9 @@ export const AppContextProvider = ({
       let x1 = x + dir[1];
       if (
         x1 >= 0 &&
-        x1 < WIDTH / CELL_SIZE &&
+        x1 < width / CELL_SIZE &&
         y1 >= 0 &&
-        y1 < HEIGHT / CELL_SIZE &&
+        y1 < height / CELL_SIZE &&
         gridBoard[y1][x1].color === CLICKED_CELL_COLOR
       ) {
         neighbors++;
@@ -315,6 +348,7 @@ export const AppContextProvider = ({
         onRunInteration: onRunIteration,
         onNextStepIteration: onNextStepIteration,
         onResetInitialGrid: onResetInitialGrid,
+        onIncreaseDecreaseGridSize: onIncreaseDecreaseGridSize,
         runIteration: runIteration,
         onPauseIteration: onPauseIteration,
         defaultCellConfig: defaultCellConfig,
